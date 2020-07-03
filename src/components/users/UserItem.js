@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class UserItem extends Component {
+  static propTypes = {
+    user: PropTypes.object,
+  };
+
   render() {
     const { login, avatar_url, html_url } = this.props.user;
 

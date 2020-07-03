@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 // components
 import UserItem from "./UserItem";
 
 class Users extends Component {
-  static propTypes = {};
-
   state = {
     users: [
       {
