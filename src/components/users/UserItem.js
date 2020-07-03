@@ -1,15 +1,13 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class UserItem extends Component {
-  state = {
-    login: "mojombo",
-    id: 1,
-    avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
-    html_url: "https://github.com/mojombo",
+  static propTypes = {
+    user: PropTypes.object,
   };
 
   render() {
-    const { login, avatar_url, html_url } = this.state;
+    const { login, avatar_url, html_url } = this.props.user;
 
     return (
       <div className="card text-center">
