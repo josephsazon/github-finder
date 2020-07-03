@@ -1,12 +1,16 @@
 import React, { Component } from "react";
+
+// components
+import Navbar from "./components/layout/Navbar";
+
+// styles
 import "./App.css";
-import { render } from "@testing-library/react";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Hello from React</h1>
+        <Navbar />
       </div>
     );
   }
