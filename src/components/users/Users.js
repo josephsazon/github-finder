@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 // components
 import UserItem from "./UserItem";
+import Spinner from "../layout/Snipper";
 
 class Users extends Component {
   static propTypes = {
@@ -18,13 +19,14 @@ class Users extends Component {
   render() {
     const { users, usersLoading } = this.props;
 
-    return (
+    return usersLoading ? (
+      <Spinner />
+    ) : (
       <div style={userStyle}>
-        {usersLoading ? (
-          <p>Loading</p>
-        ) : (
-          this.props.users.map((user) => <UserItem key={user.id} user={user} />)
-        )}
+        {users.map((user) => (
+          <UserItem key={user.id} user={user} />
+        ))}
+        )
       </div>
     );
   }
