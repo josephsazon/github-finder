@@ -5,32 +5,28 @@ import PropTypes from "prop-types";
 import UserItem from "./UserItem";
 import Spinner from "../layout/Snipper";
 
-class Users extends Component {
-  static propTypes = {
-    users: PropTypes.array.isRequired,
-    usersLoading: PropTypes.bool.isRequired,
-  };
+const Users = ({ users, usersLoading }) => {
+  return usersLoading ? (
+    <Spinner />
+  ) : (
+    <div style={userStyle}>
+      {users.map((user) => (
+        <UserItem key={user.id} user={user} />
+      ))}
+      )
+    </div>
+  );
+};
 
-  static defaultProps = {
-    users: [],
-    usersLoading: false,
-  };
+Users.propTypes = {
+  users: PropTypes.array.isRequired,
+  usersLoading: PropTypes.bool.isRequired,
+};
 
-  render() {
-    const { users, usersLoading } = this.props;
-
-    return usersLoading ? (
-      <Spinner />
-    ) : (
-      <div style={userStyle}>
-        {users.map((user) => (
-          <UserItem key={user.id} user={user} />
-        ))}
-        )
-      </div>
-    );
-  }
-}
+Users.defaultProps = {
+  users: [],
+  usersLoading: false,
+};
 
 const userStyle = {
   display: "grid",
