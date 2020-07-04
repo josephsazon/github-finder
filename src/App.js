@@ -15,9 +15,14 @@ class App extends Component {
   };
 
   componentDidMount() {
+    const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+    const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+
     this.setState({ usersLoading: true });
     axios
-      .get("https://api.github.com/users")
+      .get(
+        `https://api.github.com/users?client_id=${clientId}}&client_secret=${clientSecret}`
+      )
       .then((response) => {
         this.setState({ users: response.data });
       })
