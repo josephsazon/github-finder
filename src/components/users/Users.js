@@ -7,18 +7,24 @@ import UserItem from "./UserItem";
 class Users extends Component {
   static propTypes = {
     users: PropTypes.array.isRequired,
+    usersLoading: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
     users: [],
+    usersLoading: false,
   };
 
   render() {
+    const { users, usersLoading } = this.props;
+
     return (
       <div style={userStyle}>
-        {this.props.users.map((user) => (
-          <UserItem key={user.id} user={user} />
-        ))}
+        {usersLoading ? (
+          <p>Loading</p>
+        ) : (
+          this.props.users.map((user) => <UserItem key={user.id} user={user} />)
+        )}
       </div>
     );
   }

@@ -11,20 +11,32 @@ import "./App.css";
 class App extends Component {
   state = {
     users: [],
+    usersLoading: false,
   };
 
   componentDidMount() {
-    axios.get("https://api.github.com/users").then((response) => {
-      this.setState({ users: response.data });
-    });
+    this.setState({ usersLoading: true });
+    axios
+      .get("https://api.github.com/users")
+      .then((response) => {
+        this.setState({ users: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        this.setState({ usersLoading: false });
+      });
   }
 
   render() {
+    const { users, usersLoading } = this.state;
+
     return (
       <div className="App">
         <Navbar />
         <div className="container">
-          <Users users={this.state.users} />
+          <Users users={users} usersLoading={usersLoading} />
         </div>
       </div>
     );
