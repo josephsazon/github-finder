@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 
 // components
+import About from "./components/pages/About";
 import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import Search from "./components/users/Search";
@@ -70,6 +71,7 @@ class App extends Component {
                   </Fragment>
                 )}
               ></Route>
+              <Route exact path="/about" component={About}></Route>
             </Switch>
           </div>
         </div>
