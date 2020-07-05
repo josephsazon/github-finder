@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // components
 import UserItem from "./UserItem";
-import Spinner from "../layout/Snipper";
+import Spinner from "../layout/Spinner";
 
 const Users = ({ users, usersLoading }) => {
   return usersLoading ? (

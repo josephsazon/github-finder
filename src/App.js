@@ -7,6 +7,7 @@ import About from "./components/pages/About";
 import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import Search from "./components/users/Search";
+import User from "./components/users/User";
 import Users from "./components/users/Users";
 
 // styles
@@ -15,12 +16,32 @@ import "./App.css";
 class App extends Component {
   state = {
     alert: null,
+    user: [],
+    userLoading: false,
     users: [],
     usersLoading: false,
   };
 
   clearUsers = () => {
     this.setState({ users: [] });
+  };
+
+  getUser = (username) => {
+    this.setState({ userLoading: true });
+
+    axios
+      .get(
+        `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`
+      )
+      .then((response) => {
+        this.setState({ user: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        this.setState({ userLoading: false });
+      });
   };
 
   searchUsers = (text) => {
@@ -47,7 +68,7 @@ class App extends Component {
   };
 
   render() {
-    const { alert, users, usersLoading } = this.state;
+    const { alert, user, userLoading, users, usersLoading } = this.state;
 
     return (
       <Router>
@@ -72,6 +93,20 @@ class App extends Component {
                 )}
               ></Route>
               <Route exact path="/about" component={About}></Route>
+              <Route
+                exact
+                path="/user/:login"
+                render={(props) => (
+                  <Fragment>
+                    <User
+                      {...props}
+                      getUser={this.getUser}
+                      user={user}
+                      userLoading={userLoading}
+                    />
+                  </Fragment>
+                )}
+              ></Route>
             </Switch>
           </div>
         </div>
