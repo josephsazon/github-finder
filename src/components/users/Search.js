@@ -1,8 +1,28 @@
 import React, { Component } from "react";
 
-export class Search extends Component {
+class Search extends Component {
+  state = {
+    text: "",
+  };
+
+  onChange = (e) => {
+    this.setState({ text: e.target.value });
+  };
+
   render() {
-    return <div>Search</div>;
+    return (
+      <div>
+        <form>
+          <input
+            type="text"
+            name="text"
+            placeholder="Search Users..."
+            value={this.state.text}
+            onChange={this.onChange}
+          ></input>
+        </form>
+      </div>
+    );
   }
 }
 
