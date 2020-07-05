@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 
 // components
@@ -16,23 +17,6 @@ class App extends Component {
     users: [],
     usersLoading: false,
   };
-
-  // componentDidMount() {
-  //   this.setState({ usersLoading: true });
-  //   axios
-  //     .get(
-  //       `https://api.github.com/users?client_id=${clientId}}&client_secret=${clientSecret}`
-  //     )
-  //     .then((response) => {
-  //       this.setState({ users: response.data });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //     .finally(() => {
-  //       this.setState({ usersLoading: false });
-  //     });
-  // }
 
   clearUsers = () => {
     this.setState({ users: [] });
@@ -65,19 +49,31 @@ class App extends Component {
     const { alert, users, usersLoading } = this.state;
 
     return (
-      <div className="App">
-        <Navbar />
-        <div className="container">
-          <Alert alert={alert} />
-          <Search
-            clearUsers={this.clearUsers}
-            searchUsers={this.searchUsers}
-            setAlert={this.setAlert}
-            showClear={users.length ? true : false}
-          />
-          <Users users={users} usersLoading={usersLoading} />
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className="container">
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Fragment>
+                    <Alert alert={alert} />
+                    <Search
+                      clearUsers={this.clearUsers}
+                      searchUsers={this.searchUsers}
+                      setAlert={this.setAlert}
+                      showClear={users.length ? true : false}
+                    />
+                    <Users users={users} usersLoading={usersLoading} />
+                  </Fragment>
+                )}
+              ></Route>
+            </Switch>
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
