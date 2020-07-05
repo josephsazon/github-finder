@@ -21,7 +21,7 @@ class User extends Component {
   }
 
   render() {
-    const { avatar_url, name, hirable } = this.props.user;
+    const { avatar_url, name, hirable, location } = this.props.user;
     const { userLoading } = this.props;
 
     return userLoading ? (
@@ -42,6 +42,8 @@ class User extends Component {
               alt=""
               style={{ width: "150px" }}
             />
+            <h1>{name}</h1>
+            <p>{location}</p>
           </div>
         </div>
       </Fragment>
