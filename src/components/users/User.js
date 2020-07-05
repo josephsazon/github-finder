@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
 // components
@@ -21,10 +21,31 @@ class User extends Component {
   }
 
   render() {
-    const { name } = this.props.user;
+    const { avatar_url, name, hirable } = this.props.user;
     const { userLoading } = this.props;
 
-    return userLoading ? <Spinner /> : <div>{name}</div>;
+    return userLoading ? (
+      <Spinner />
+    ) : (
+      <Fragment>
+        Hirable:{" "}
+        {hirable ? (
+          <i className="fas fa-check text-success"></i>
+        ) : (
+          <i className="fas fa-times-circle text-danger"></i>
+        )}
+        <div className="card grid-2">
+          <div className="all-center">
+            <img
+              src={avatar_url}
+              className="round-img"
+              alt=""
+              style={{ width: "150px" }}
+            />
+          </div>
+        </div>
+      </Fragment>
+    );
   }
 }
 
