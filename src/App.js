@@ -7,6 +7,7 @@ import About from "./components/pages/About";
 import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import Search from "./components/users/Search";
+import User from "./components/users/User";
 import Users from "./components/users/Users";
 
 // styles
@@ -72,6 +73,15 @@ class App extends Component {
                 )}
               ></Route>
               <Route exact path="/about" component={About}></Route>
+              <Route
+                exact
+                path="/user/:login"
+                render={(props) => (
+                  <Fragment>
+                    <User />
+                  </Fragment>
+                )}
+              ></Route>
             </Switch>
           </div>
         </div>
