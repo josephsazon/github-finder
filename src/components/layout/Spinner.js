@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 import spinner from "./spinner.gif";
 
-const Snipper = () => {
+const Spinner = () => {
   return (
     <Fragment>
       <img src={spinner} alt="Loading..." style={spinnerStyle}></img>
@@ -12,4 +12,4 @@ const Snipper = () => {
 
 const spinnerStyle = { width: "200px", margin: "auto", display: "block" };
 
-export default Snipper;
+export default Spinner;
