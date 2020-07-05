@@ -1,10 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+// components
+import RepoItem from "./RepoItem";
 import Spinner from "../layout/Spinner";
 
 const Repos = ({ repos, reposLoading }) => {
-  console.log(repos);
-  return reposLoading ? <Spinner /> : <div>Repos</div>;
+  return reposLoading ? (
+    <Spinner />
+  ) : (
+    repos.map((repo) => <RepoItem repo={repo} key={repo.id} />)
+  );
 };
 
 Repos.propTypes = {
