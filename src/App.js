@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 // components
+import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import Search from "./components/users/Search";
 import Users from "./components/users/Users";
@@ -11,26 +12,27 @@ import "./App.css";
 
 class App extends Component {
   state = {
+    alert: null,
     users: [],
     usersLoading: false,
   };
 
-  componentDidMount() {
-    this.setState({ usersLoading: true });
-    axios
-      .get(
-        `https://api.github.com/users?client_id=${clientId}}&client_secret=${clientSecret}`
-      )
-      .then((response) => {
-        this.setState({ users: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        this.setState({ usersLoading: false });
-      });
-  }
+  // componentDidMount() {
+  //   this.setState({ usersLoading: true });
+  //   axios
+  //     .get(
+  //       `https://api.github.com/users?client_id=${clientId}}&client_secret=${clientSecret}`
+  //     )
+  //     .then((response) => {
+  //       this.setState({ users: response.data });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //     .finally(() => {
+  //       this.setState({ usersLoading: false });
+  //     });
+  // }
 
   clearUsers = () => {
     this.setState({ users: [] });
@@ -53,16 +55,24 @@ class App extends Component {
       });
   };
 
+  setAlert = (msg, type) => {
+    this.setState({ alert: { msg, type } });
+
+    setTimeout(() => this.setState({ alert: null }), 2000);
+  };
+
   render() {
-    const { users, usersLoading } = this.state;
+    const { alert, users, usersLoading } = this.state;
 
     return (
       <div className="App">
         <Navbar />
         <div className="container">
+          <Alert alert={alert} />
           <Search
             clearUsers={this.clearUsers}
             searchUsers={this.searchUsers}
+            setAlert={this.setAlert}
             showClear={users.length ? true : false}
           />
           <Users users={users} usersLoading={usersLoading} />
