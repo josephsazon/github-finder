@@ -6,7 +6,7 @@ class Search extends Component {
   };
 
   onChange = (e) => {
-    this.setState({ text: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
@@ -19,6 +19,11 @@ class Search extends Component {
             placeholder="Search Users..."
             value={this.state.text}
             onChange={this.onChange}
+          ></input>
+          <input
+            type="submit"
+            value="Search"
+            className="btn btn-dark btn-block"
           ></input>
         </form>
       </div>
