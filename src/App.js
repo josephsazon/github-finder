@@ -32,6 +32,10 @@ class App extends Component {
       });
   }
 
+  clearUsers = () => {
+    this.setState({ users: [] });
+  };
+
   searchUsers = (text) => {
     this.setState({ usersLoading: true });
     axios
@@ -56,7 +60,11 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="container">
-          <Search searchUsers={this.searchUsers} />
+          <Search
+            clearUsers={this.clearUsers}
+            searchUsers={this.searchUsers}
+            showClear={users.length ? true : false}
+          />
           <Users users={users} usersLoading={usersLoading} />
         </div>
       </div>
