@@ -21,7 +21,14 @@ class User extends Component {
   }
 
   render() {
-    const { avatar_url, name, hirable, location } = this.props.user;
+    const {
+      avatar_url,
+      bio,
+      name,
+      hirable,
+      html_url,
+      location,
+    } = this.props.user;
     const { userLoading } = this.props;
 
     return userLoading ? (
@@ -44,6 +51,17 @@ class User extends Component {
             />
             <h1>{name}</h1>
             <p>{location}</p>
+          </div>
+          <div>
+            {bio && (
+              <Fragment>
+                <h3>Bio</h3>
+                <p>{bio}</p>
+              </Fragment>
+            )}
+            <a href={html_url} className="btn btn-dark my-1">
+              Visit Github Profile
+            </a>
           </div>
         </div>
       </Fragment>
