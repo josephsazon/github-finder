@@ -8,17 +8,23 @@ import Repos from "../repos/Repos";
 class User extends Component {
   static propTypes = {
     getUser: PropTypes.func.isRequired,
+    getUserRepos: PropTypes.func.isRequired,
+    repos: PropTypes.array.isRequired,
+    reposLoading: PropTypes.bool,
     user: PropTypes.object.isRequired,
-    userLoading: PropTypes.bool.isRequired,
+    userLoading: PropTypes.bool,
   };
 
   static defaultProps = {
+    repos: [],
+    reposLoading: false,
     user: {},
     userLoading: false,
   };
 
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
+    this.props.getUserRepos(this.props.match.params.login);
   }
 
   render() {
@@ -37,7 +43,7 @@ class User extends Component {
       public_gists,
       public_repos,
     } = this.props.user;
-    const { userLoading } = this.props;
+    const { repos, reposLoading, userLoading } = this.props;
 
     return userLoading ? (
       <Spinner />
@@ -101,7 +107,7 @@ class User extends Component {
           <div className="badge badge-light">Public Repos: {public_repos}</div>
           <div className="badge badge-dark">Public Gists: {public_gists}</div>
         </div>
-        <Repos />
+        <Repos repos={repos} reposLoading={reposLoading} />
       </Fragment>
     );
   }
