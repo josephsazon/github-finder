@@ -26,11 +26,15 @@ class User extends Component {
       bio,
       blog,
       company,
+      followers,
+      following,
       name,
       hirable,
       html_url,
       location,
       login,
+      public_gists,
+      public_repos,
     } = this.props.user;
     const { userLoading } = this.props;
 
@@ -89,6 +93,12 @@ class User extends Component {
               </li>
             </ul>
           </div>
+        </div>
+        <div className="card text-center">
+          <div className="badge badge-primary">Followers: {followers}</div>
+          <div className="badge badge-success">Following: {following}</div>
+          <div className="badge badge-light">Public Repos: {public_repos}</div>
+          <div className="badge badge-dark">Public Gists: {public_gists}</div>
         </div>
       </Fragment>
     );
