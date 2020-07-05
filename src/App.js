@@ -16,6 +16,8 @@ import "./App.css";
 class App extends Component {
   state = {
     alert: null,
+    repos: [],
+    reposLoading: false,
     user: [],
     userLoading: false,
     users: [],
@@ -44,6 +46,24 @@ class App extends Component {
       });
   };
 
+  getUserRepos = (username) => {
+    this.setState({ reposLoading: true });
+
+    axios
+      .get(
+        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`
+      )
+      .then((response) => {
+        this.setState({ repos: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        this.setState({ reposLoading: false });
+      });
+  };
+
   searchUsers = (text) => {
     this.setState({ usersLoading: true });
     axios
@@ -68,7 +88,15 @@ class App extends Component {
   };
 
   render() {
-    const { alert, user, userLoading, users, usersLoading } = this.state;
+    const {
+      alert,
+      repos,
+      reposLoading,
+      user,
+      userLoading,
+      users,
+      usersLoading,
+    } = this.state;
 
     return (
       <Router>
@@ -101,6 +129,9 @@ class App extends Component {
                     <User
                       {...props}
                       getUser={this.getUser}
+                      getUserRepos={this.getUserRepos}
+                      repos={repos}
+                      reposLoading={reposLoading}
                       user={user}
                       userLoading={userLoading}
                     />
