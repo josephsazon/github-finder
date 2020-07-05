@@ -12,6 +12,7 @@ import "./App.css";
 
 class App extends Component {
   state = {
+    alert: null,
     users: [],
     usersLoading: false,
   };
@@ -54,17 +55,24 @@ class App extends Component {
       });
   };
 
+  setAlert = (msg, type) => {
+    this.setState({ alert: { msg, type } });
+
+    setTimeout(() => this.setState({ alert: null }), 2000);
+  };
+
   render() {
-    const { users, usersLoading } = this.state;
+    const { alert, users, usersLoading } = this.state;
 
     return (
       <div className="App">
         <Navbar />
         <div className="container">
-          <Alert />
+          <Alert alert={alert} />
           <Search
             clearUsers={this.clearUsers}
             searchUsers={this.searchUsers}
+            setAlert={this.setAlert}
             showClear={users.length ? true : false}
           />
           <Users users={users} usersLoading={usersLoading} />
