@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 // components
+import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import Search from "./components/users/Search";
 import Users from "./components/users/Users";
@@ -60,6 +61,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="container">
+          <Alert />
           <Search
             clearUsers={this.clearUsers}
             searchUsers={this.searchUsers}
