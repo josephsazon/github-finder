@@ -16,9 +16,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-    const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
-
     this.setState({ usersLoading: true });
     axios
       .get(
@@ -35,6 +32,23 @@ class App extends Component {
       });
   }
 
+  searchUsers = (text) => {
+    this.setState({ usersLoading: true });
+    axios
+      .get(
+        `https://api.github.com/search/users?q=${text}&client_id=${clientId}&client_secret=${clientSecret}`
+      )
+      .then((response) => {
+        this.setState({ users: response.data.items });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        this.setState({ usersLoading: false });
+      });
+  };
+
   render() {
     const { users, usersLoading } = this.state;
 
@@ -42,12 +56,15 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="container">
-          <Search />
+          <Search searchUsers={this.searchUsers} />
           <Users users={users} usersLoading={usersLoading} />
         </div>
       </div>
     );
   }
 }
+
+const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
 
 export default App;
