@@ -17,22 +17,22 @@ class App extends Component {
     usersLoading: false,
   };
 
-  componentDidMount() {
-    this.setState({ usersLoading: true });
-    axios
-      .get(
-        `https://api.github.com/users?client_id=${clientId}}&client_secret=${clientSecret}`
-      )
-      .then((response) => {
-        this.setState({ users: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        this.setState({ usersLoading: false });
-      });
-  }
+  // componentDidMount() {
+  //   this.setState({ usersLoading: true });
+  //   axios
+  //     .get(
+  //       `https://api.github.com/users?client_id=${clientId}}&client_secret=${clientSecret}`
+  //     )
+  //     .then((response) => {
+  //       this.setState({ users: response.data });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //     .finally(() => {
+  //       this.setState({ usersLoading: false });
+  //     });
+  // }
 
   clearUsers = () => {
     this.setState({ users: [] });
