@@ -3,6 +3,7 @@ import axios from "axios";
 
 // components
 import Navbar from "./components/layout/Navbar";
+import Search from "./components/users/Search";
 import Users from "./components/users/Users";
 
 // styles
@@ -41,6 +42,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="container">
+          <Search />
           <Users users={users} usersLoading={usersLoading} />
         </div>
       </div>
