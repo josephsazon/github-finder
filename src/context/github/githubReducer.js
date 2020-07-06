@@ -17,10 +17,12 @@ export default (state, action) => {
       };
     case SEARCH_USERS:
       return {
+        ...state,
         users: action.payload,
       };
     case TOGGLE_USERS_LOADING:
       return {
+        ...state,
         usersLoading: !state.usersLoading,
       };
     default:
