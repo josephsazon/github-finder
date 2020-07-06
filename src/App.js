@@ -2,6 +2,9 @@ import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 
+// state
+import GithubState from "./context/github/GithubState";
+
 // components
 import About from "./components/pages/About";
 import Alert from "./components/layout/Alert";
@@ -87,51 +90,52 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="container">
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <Fragment>
-                  <Alert alert={alert} />
-                  <Search
-                    clearUsers={clearUsers}
-                    searchUsers={searchUsers}
-                    showAlert={showAlert}
-                    showClear={users.length ? true : false}
-                  />
-                  <Users users={users} usersLoading={usersLoading} />
-                </Fragment>
-              )}
-            ></Route>
-            <Route exact path="/about" component={About}></Route>
-            <Route
-              exact
-              path="/user/:login"
-              render={(props) => (
-                <Fragment>
-                  <User
-                    {...props}
-                    getUser={getUser}
-                    getUserRepos={getUserRepos}
-                    repos={repos}
-                    reposLoading={reposLoading}
-                    user={user}
-                    userLoading={userLoading}
-                  />
-                </Fragment>
-              )}
-            ></Route>
-          </Switch>
+    <GithubState>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className="container">
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Fragment>
+                    <Alert alert={alert} />
+                    <Search
+                      clearUsers={clearUsers}
+                      searchUsers={searchUsers}
+                      showAlert={showAlert}
+                      showClear={users.length ? true : false}
+                    />
+                    <Users users={users} usersLoading={usersLoading} />
+                  </Fragment>
+                )}
+              ></Route>
+              <Route exact path="/about" component={About}></Route>
+              <Route
+                exact
+                path="/user/:login"
+                render={(props) => (
+                  <Fragment>
+                    <User
+                      {...props}
+                      getUser={getUser}
+                      getUserRepos={getUserRepos}
+                      repos={repos}
+                      reposLoading={reposLoading}
+                      user={user}
+                      userLoading={userLoading}
+                    />
+                  </Fragment>
+                )}
+              ></Route>
+            </Switch>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </GithubState>
   );
-  // }
 };
 
 const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
