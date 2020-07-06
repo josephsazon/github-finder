@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 
 // state
 import GithubState from "./context/github/GithubState";
@@ -18,26 +17,6 @@ import "./App.css";
 
 const App = () => {
   const [alert, setAlert] = useState(null);
-  const [repos, setRepos] = useState([]);
-  const [reposLoading, setReposLoading] = useState(false);
-
-  const getUserRepos = (username) => {
-    setReposLoading(true);
-
-    axios
-      .get(
-        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`
-      )
-      .then((response) => {
-        setRepos(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setReposLoading(false);
-      });
-  };
 
   const showAlert = (msg, type) => {
     setAlert({ msg, type });
@@ -64,20 +43,7 @@ const App = () => {
                 )}
               ></Route>
               <Route exact path="/about" component={About}></Route>
-              <Route
-                exact
-                path="/user/:login"
-                render={(props) => (
-                  <Fragment>
-                    <User
-                      {...props}
-                      getUserRepos={getUserRepos}
-                      repos={repos}
-                      reposLoading={reposLoading}
-                    />
-                  </Fragment>
-                )}
-              ></Route>
+              <Route exact path="/user/:login" component={User}></Route>
             </Switch>
           </div>
         </div>
@@ -85,8 +51,5 @@ const App = () => {
     </GithubState>
   );
 };
-
-const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
 
 export default App;

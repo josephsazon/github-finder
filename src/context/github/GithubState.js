@@ -12,6 +12,7 @@ import {
   SET_ALERT,
   TOGGLE_USER_LOADING,
   TOGGLE_USERS_LOADING,
+  TOGGLE_REPOS_LOADING,
 } from "../types";
 
 const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
@@ -36,6 +37,23 @@ const GithubState = (props) => {
   };
 
   // Get repos
+  const getUserRepos = (username) => {
+    toggleReposLoading();
+
+    axios
+      .get(
+        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`
+      )
+      .then((response) => {
+        dispatch({ type: GET_REPOS, payload: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        toggleReposLoading();
+      });
+  };
 
   // Get user
   const getUser = (username) => {
@@ -75,6 +93,9 @@ const GithubState = (props) => {
       });
   };
 
+  // Toggle repos loading
+  const toggleReposLoading = () => dispatch({ type: TOGGLE_REPOS_LOADING });
+
   // Toggle user loading
   const toggleUserLoading = () => dispatch({ type: TOGGLE_USER_LOADING });
 
@@ -92,6 +113,7 @@ const GithubState = (props) => {
         usersLoading: state.usersLoading,
         clearUsers,
         getUser,
+        getUserRepos,
         searchUsers,
       }}
     >
