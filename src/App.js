@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // state
+import AlertState from "./context/alert/AlertState";
 import GithubState from "./context/github/GithubState";
 
 // components
@@ -16,38 +17,32 @@ import Users from "./components/users/Users";
 import "./App.css";
 
 const App = () => {
-  const [alert, setAlert] = useState(null);
-
-  const showAlert = (msg, type) => {
-    setAlert({ msg, type });
-
-    setTimeout(() => setAlert(null), 2000);
-  };
-
   return (
     <GithubState>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={(props) => (
-                  <Fragment>
-                    <Alert alert={alert} />
-                    <Search showAlert={showAlert} />
-                    <Users />
-                  </Fragment>
-                )}
-              ></Route>
-              <Route exact path="/about" component={About}></Route>
-              <Route exact path="/user/:login" component={User}></Route>
-            </Switch>
+      <AlertState>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => (
+                    <Fragment>
+                      <Alert />
+                      <Search />
+                      <Users />
+                    </Fragment>
+                  )}
+                ></Route>
+                <Route exact path="/about" component={About}></Route>
+                <Route exact path="/user/:login" component={User}></Route>
+              </Switch>
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </AlertState>
     </GithubState>
   );
 };
