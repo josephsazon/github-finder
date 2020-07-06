@@ -30,6 +30,10 @@ const GithubState = (props) => {
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
   // Clear users
+  const clearUsers = () => {
+    // setUsers([]);
+    dispatch({ type: CLEAR_USERS });
+  };
 
   // Get repos
 
@@ -69,6 +73,7 @@ const GithubState = (props) => {
         userLoading: state.userLoading,
         users: state.users,
         usersLoading: state.usersLoading,
+        clearUsers,
         searchUsers,
       }}
     >

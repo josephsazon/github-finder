@@ -22,11 +22,6 @@ const App = () => {
   const [reposLoading, setReposLoading] = useState(false);
   const [user, setUser] = useState({});
   const [userLoading, setUserLoading] = useState(false);
-  const [users, setUsers] = useState([]);
-
-  const clearUsers = () => {
-    setUsers([]);
-  };
 
   const getUser = (username) => {
     setUserLoading(true);
@@ -83,11 +78,7 @@ const App = () => {
                 render={(props) => (
                   <Fragment>
                     <Alert alert={alert} />
-                    <Search
-                      clearUsers={clearUsers}
-                      showAlert={showAlert}
-                      showClear={users.length ? true : false}
-                    />
+                    <Search showAlert={showAlert} />
                     <Users />
                   </Fragment>
                 )}

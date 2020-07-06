@@ -10,6 +10,11 @@ import {
 
 export default (state, action) => {
   switch (action.type) {
+    case CLEAR_USERS:
+      return {
+        ...state,
+        users: [],
+      };
     case SET_LOADING:
       return {
         ...state,
