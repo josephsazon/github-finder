@@ -18,26 +18,6 @@ import "./App.css";
 
 const App = () => {
   const [alert, setAlert] = useState(null);
-  const [repos, setRepos] = useState([]);
-  const [reposLoading, setReposLoading] = useState(false);
-
-  const getUserRepos = (username) => {
-    setReposLoading(true);
-
-    axios
-      .get(
-        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`
-      )
-      .then((response) => {
-        setRepos(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setReposLoading(false);
-      });
-  };
 
   const showAlert = (msg, type) => {
     setAlert({ msg, type });
@@ -69,12 +49,7 @@ const App = () => {
                 path="/user/:login"
                 render={(props) => (
                   <Fragment>
-                    <User
-                      {...props}
-                      getUserRepos={getUserRepos}
-                      repos={repos}
-                      reposLoading={reposLoading}
-                    />
+                    <User {...props} />
                   </Fragment>
                 )}
               ></Route>
