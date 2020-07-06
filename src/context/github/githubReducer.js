@@ -4,7 +4,7 @@ import {
   GET_USER,
   SEARCH_USERS,
   SET_ALERT,
-  SET_LOADING,
+  TOGGLE_USER_LOADING,
   TOGGLE_USERS_LOADING,
 } from "../types";
 
@@ -15,15 +15,20 @@ export default (state, action) => {
         ...state,
         users: [],
       };
-    case SET_LOADING:
+    case GET_USER:
       return {
         ...state,
-        usersLoading: !state.usersLoading,
+        user: action.payload,
       };
     case SEARCH_USERS:
       return {
         ...state,
         users: action.payload,
+      };
+    case TOGGLE_USER_LOADING:
+      return {
+        ...state,
+        userLoading: !state.userLoading,
       };
     case TOGGLE_USERS_LOADING:
       return {
