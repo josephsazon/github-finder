@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 
 // state
 import GithubContext from "../../context/github/githubContext";

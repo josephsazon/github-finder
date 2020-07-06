@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 
 // state
 import GithubState from "./context/github/GithubState";
@@ -44,15 +43,7 @@ const App = () => {
                 )}
               ></Route>
               <Route exact path="/about" component={About}></Route>
-              <Route
-                exact
-                path="/user/:login"
-                render={(props) => (
-                  <Fragment>
-                    <User {...props} />
-                  </Fragment>
-                )}
-              ></Route>
+              <Route exact path="/user/:login" component={User}></Route>
             </Switch>
           </div>
         </div>
@@ -60,8 +51,5 @@ const App = () => {
     </GithubState>
   );
 };
-
-const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
 
 export default App;
