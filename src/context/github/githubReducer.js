@@ -5,6 +5,7 @@ import {
   SEARCH_USERS,
   SET_ALERT,
   SET_LOADING,
+  TOGGLE_USERS_LOADING,
 } from "../types";
 
 export default (state, action) => {
@@ -17,6 +18,10 @@ export default (state, action) => {
     case SEARCH_USERS:
       return {
         users: action.payload,
+      };
+    case TOGGLE_USERS_LOADING:
+      return {
+        usersLoading: !state.usersLoading,
       };
     default:
       return state;
