@@ -10,7 +10,7 @@ import {
   GET_USER,
   SEARCH_USERS,
   SET_ALERT,
-  SET_LOADING,
+  TOGGLE_USER_LOADING,
   TOGGLE_USERS_LOADING,
 } from "../types";
 
@@ -38,6 +38,23 @@ const GithubState = (props) => {
   // Get repos
 
   // Get user
+  const getUser = (username) => {
+    toggleUserLoading();
+
+    axios
+      .get(
+        `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`
+      )
+      .then((response) => {
+        dispatch({ type: GET_USER, payload: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        toggleUserLoading();
+      });
+  };
 
   // Search users
   const searchUsers = (text) => {
@@ -58,8 +75,8 @@ const GithubState = (props) => {
       });
   };
 
-  // Set loading
-  const setLoading = () => dispatch({ type: SET_LOADING });
+  // Toggle user loading
+  const toggleUserLoading = () => dispatch({ type: TOGGLE_USER_LOADING });
 
   // Toggle users loading
   const toggleUsersLoading = () => dispatch({ type: TOGGLE_USERS_LOADING });
@@ -74,6 +91,7 @@ const GithubState = (props) => {
         users: state.users,
         usersLoading: state.usersLoading,
         clearUsers,
+        getUser,
         searchUsers,
       }}
     >

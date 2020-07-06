@@ -20,26 +20,6 @@ const App = () => {
   const [alert, setAlert] = useState(null);
   const [repos, setRepos] = useState([]);
   const [reposLoading, setReposLoading] = useState(false);
-  const [user, setUser] = useState({});
-  const [userLoading, setUserLoading] = useState(false);
-
-  const getUser = (username) => {
-    setUserLoading(true);
-
-    axios
-      .get(
-        `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`
-      )
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setUserLoading(false);
-      });
-  };
 
   const getUserRepos = (username) => {
     setReposLoading(true);
@@ -91,12 +71,9 @@ const App = () => {
                   <Fragment>
                     <User
                       {...props}
-                      getUser={getUser}
                       getUserRepos={getUserRepos}
                       repos={repos}
                       reposLoading={reposLoading}
-                      user={user}
-                      userLoading={userLoading}
                     />
                   </Fragment>
                 )}
