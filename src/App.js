@@ -65,24 +65,6 @@ const App = () => {
       });
   };
 
-  const searchUsers = (text) => {
-    setUsersLoading(true);
-
-    axios
-      .get(
-        `https://api.github.com/search/users?q=${text}&client_id=${clientId}&client_secret=${clientSecret}`
-      )
-      .then((response) => {
-        setUsers(response.data.items);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setUsersLoading(false);
-      });
-  };
-
   const showAlert = (msg, type) => {
     setAlert({ msg, type });
 
@@ -104,7 +86,6 @@ const App = () => {
                     <Alert alert={alert} />
                     <Search
                       clearUsers={clearUsers}
-                      searchUsers={searchUsers}
                       showAlert={showAlert}
                       showClear={users.length ? true : false}
                     />
