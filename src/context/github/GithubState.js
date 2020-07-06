@@ -10,7 +10,11 @@ import {
   GET_USER,
   SEARCH_USERS,
   SET_ALERT,
+  SET_LOADING,
 } from "../types";
+
+const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
 
 const GithubState = (props) => {
   const initialState = {
@@ -31,8 +35,29 @@ const GithubState = (props) => {
   // Get user
 
   // Search users
+  const searchUsers = (text) => {
+    // setUsersLoading(true);
+    setLoading();
+
+    axios
+      .get(
+        `https://api.github.com/search/users?q=${text}&client_id=${clientId}&client_secret=${clientSecret}`
+      )
+      .then((response) => {
+        // setUsers(response.data.items);
+        dispatch({ type: SEARCH_USERS, payload: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        // setUsersLoading(false);
+        setLoading();
+      });
+  };
 
   // Set loading
+  const setLoading = () => dispatch({ type: SET_LOADING });
 
   return (
     <GithubContext.Provider
