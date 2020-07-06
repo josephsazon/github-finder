@@ -23,7 +23,6 @@ const App = () => {
   const [user, setUser] = useState({});
   const [userLoading, setUserLoading] = useState(false);
   const [users, setUsers] = useState([]);
-  const [usersLoading, setUsersLoading] = useState(false);
 
   const clearUsers = () => {
     setUsers([]);
@@ -89,7 +88,7 @@ const App = () => {
                       showAlert={showAlert}
                       showClear={users.length ? true : false}
                     />
-                    <Users users={users} usersLoading={usersLoading} />
+                    <Users />
                   </Fragment>
                 )}
               ></Route>
