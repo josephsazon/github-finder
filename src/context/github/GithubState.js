@@ -14,8 +14,16 @@ import {
   TOGGLE_REPOS_LOADING,
 } from "../types";
 
-const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-const clientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+let githubClienId;
+let githubClienSecret;
+
+if (process.env.NODE_ENV !== "production") {
+  githubClienId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClienSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClienId = process.env.GITHUB_CLIENT_ID;
+  githubClienSecret = process.env.GITHUB_CLIENT_SECRET;
+}
 
 const GithubState = (props) => {
   const initialState = {
@@ -41,7 +49,7 @@ const GithubState = (props) => {
 
     axios
       .get(
-        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`
+        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${githubClienId}&client_secret=${githubClienSecret}`
       )
       .then((response) => {
         dispatch({ type: GET_REPOS, payload: response.data });
@@ -60,7 +68,7 @@ const GithubState = (props) => {
 
     axios
       .get(
-        `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`
+        `https://api.github.com/users/${username}?client_id=${githubClienId}&client_secret=${githubClienSecret}`
       )
       .then((response) => {
         dispatch({ type: GET_USER, payload: response.data });
@@ -79,7 +87,7 @@ const GithubState = (props) => {
 
     axios
       .get(
-        `https://api.github.com/search/users?q=${text}&client_id=${clientId}&client_secret=${clientSecret}`
+        `https://api.github.com/search/users?q=${text}&client_id=${githubClienId}&client_secret=${githubClienSecret}`
       )
       .then((response) => {
         dispatch({ type: SEARCH_USERS, payload: response.data.items });
